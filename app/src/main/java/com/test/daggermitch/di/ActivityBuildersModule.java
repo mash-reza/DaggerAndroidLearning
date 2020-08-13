@@ -11,9 +11,4 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     public abstract AuthActivity contributeAuthActivity();
-
-    @Provides
-    public static String getFuckerString(){
-        return "Trump is MotherFucker";
-    }
 }
