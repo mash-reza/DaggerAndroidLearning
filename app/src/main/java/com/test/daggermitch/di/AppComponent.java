@@ -9,7 +9,8 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
-@Component(modules = {AndroidInjectionModule.class})
+@Component(modules =
+        {AndroidInjectionModule.class, ActivityBuildersModule.class})
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
     @Component.Builder
