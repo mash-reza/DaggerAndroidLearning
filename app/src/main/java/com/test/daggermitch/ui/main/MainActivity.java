@@ -15,11 +15,21 @@ import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity {
 
+    @Inject
+    ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        profileFragment();
+    }
+
+    private void profileFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container,profileFragment)
+                .commit();
     }
 
     @Override

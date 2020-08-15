@@ -5,6 +5,7 @@ import android.app.Application;
 import com.test.daggermitch.BaseApplication;
 import com.test.daggermitch.SessionManager;
 import com.test.daggermitch.di.auth.AuthViewModelsModule;
+import com.test.daggermitch.di.main.MainFragmentBuildersModule;
 
 import javax.inject.Singleton;
 
