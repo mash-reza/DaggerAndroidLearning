@@ -2,9 +2,9 @@ package com.test.daggermitch.ui.auth;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.test.daggermitch.SessionManager;
 import com.test.daggermitch.model.User;
 import com.test.daggermitch.network.auth.AuthApi;
 
@@ -17,16 +17,20 @@ public class AuthViewModel extends ViewModel {
     private static final String TAG = "AuthViewModel";
 
     private AuthApi authApi;
-    private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();
+    private SessionManager sessionManager;
 
     @Inject
-    public AuthViewModel(AuthApi authApi) {
+    public AuthViewModel(AuthApi authApi, SessionManager sessionManager) {
         this.authApi = authApi;
+        this.sessionManager = sessionManager;
     }
 
     public void authenticateWithId(int userId) {
-        authUser.setValue(AuthResource.loading(null));
-        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
+        sessionManager.authenticateWithId(queryUserId(userId));
+    }
+
+    private LiveData<AuthResource<User>> queryUserId(int userId) {
+        return LiveDataReactiveStreams.fromPublisher(
                 authApi.getUser(userId).subscribeOn(Schedulers.io())
                         .onErrorReturn(throwable -> {
                             User errorUser = new User();
@@ -38,13 +42,9 @@ public class AuthViewModel extends ViewModel {
                     return AuthResource.authenticated(user);
                 })
         );
-        authUser.addSource(source, userAuthResource -> {
-            authUser.setValue(source.getValue());
-            authUser.removeSource(source);
-        });
     }
 
-    public LiveData<AuthResource<User>> observeUser() {
-        return authUser;
+    public LiveData<AuthResource<User>> observeAuthState() {
+        return sessionManager.getAuthUser();
     }
 }

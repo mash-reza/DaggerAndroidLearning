@@ -1,5 +1,7 @@
 package com.test.daggermitch;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
@@ -11,6 +13,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class SessionManager {
+
+    private static final String TAG = "SessionManager";
 
     private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();
 
@@ -29,6 +33,7 @@ public class SessionManager {
     }
 
     public void logout() {
+        Log.d(TAG, "logout: logging out from app...");
         authUser.setValue(AuthResource.logout());
     }
 
