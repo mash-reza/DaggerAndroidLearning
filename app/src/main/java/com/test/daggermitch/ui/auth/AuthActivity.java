@@ -1,5 +1,6 @@
 package com.test.daggermitch.ui.auth;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.RequestManager;
 import com.test.daggermitch.R;
+import com.test.daggermitch.ui.main.MainActivity;
 import com.test.daggermitch.viewmodel.ViewModelProvidersFactory;
 
 import javax.inject.Inject;
@@ -67,6 +69,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
                     case AUTHENTICATED: {
                         showProgressBar(false);
                         Log.d(TAG, "subscribeObservers: Auhtenticated Email:" + userAuthResource.data.getEmail());
+                        onLoginSuccess();
                         break;
                     }
                     case NOT_AUTHENTICATED: {
@@ -85,6 +88,12 @@ public class AuthActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+    }
+
+    private void onLoginSuccess(){
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
     }
 
     private void showProgressBar(boolean isVisible) {
