@@ -4,9 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -35,6 +38,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
 
     private EditText userIdEditText;
     private Button userLoginButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_auth);
         userIdEditText = findViewById(R.id.user_id_input);
         userLoginButton = findViewById(R.id.login_button);
+        progressBar = findViewById(R.id.progress_bar);
 
         authViewModel = new ViewModelProvider(this, viewModelProvidersFactory)
                 .get(AuthViewModel.class);
@@ -56,9 +61,35 @@ public class AuthActivity extends DaggerAppCompatActivity {
     }
 
     private void subscribeObservers() {
-        authViewModel.observeUser().observe(this, user -> {
-            Log.d(TAG, "subscribeObservers: user login email is: " + user.getEmail());
+        authViewModel.observeUser().observe(this, userAuthResource -> {
+            if (userAuthResource != null) {
+                switch (userAuthResource.status) {
+                    case AUTHENTICATED: {
+                        showProgressBar(false);
+                        Log.d(TAG, "subscribeObservers: Auhtenticated Email:" + userAuthResource.data.getEmail());
+                        break;
+                    }
+                    case NOT_AUTHENTICATED: {
+                        showProgressBar(false);
+                        break;
+                    }
+                    case ERROR: {
+                        showProgressBar(false);
+                        Toast.makeText(this, userAuthResource.message, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case LOADING: {
+                        showProgressBar(true);
+                        break;
+                    }
+                }
+            }
         });
+    }
+
+    private void showProgressBar(boolean isVisible) {
+        if (isVisible) progressBar.setVisibility(View.VISIBLE);
+        else progressBar.setVisibility(View.GONE);
     }
 
     private void setLogo() {

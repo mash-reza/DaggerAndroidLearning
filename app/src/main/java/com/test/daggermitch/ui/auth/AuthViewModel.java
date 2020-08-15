@@ -17,7 +17,7 @@ public class AuthViewModel extends ViewModel {
     private static final String TAG = "AuthViewModel";
 
     private AuthApi authApi;
-    private MediatorLiveData<User> authUser = new MediatorLiveData<>();
+    private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();
 
     @Inject
     public AuthViewModel(AuthApi authApi) {
@@ -25,16 +25,26 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void authenticateWithId(int userId) {
-        final LiveData<User> source = LiveDataReactiveStreams.fromPublisher(
+        authUser.setValue(AuthResource.loading(null));
+        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
                 authApi.getUser(userId).subscribeOn(Schedulers.io())
+                        .onErrorReturn(throwable -> {
+                            User errorUser = new User();
+                            errorUser.setId(-1);
+                            return errorUser;
+                        }).map(user -> {
+                    if (user.getId() == -1)
+                        return AuthResource.error("Error occurred. Fuck man!", user);
+                    return AuthResource.authenticated(user);
+                })
         );
-        authUser.addSource(source, user -> {
+        authUser.addSource(source, userAuthResource -> {
             authUser.setValue(source.getValue());
             authUser.removeSource(source);
         });
     }
 
-    public LiveData<User> observeUser() {
+    public LiveData<AuthResource<User>> observeUser() {
         return authUser;
     }
 }
