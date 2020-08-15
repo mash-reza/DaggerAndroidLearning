@@ -90,10 +90,10 @@ public class AuthActivity extends DaggerAppCompatActivity {
         });
     }
 
-    private void onLoginSuccess(){
+    private void onLoginSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
-        finish();
         startActivity(intent);
+        finish();
     }
 
     private void showProgressBar(boolean isVisible) {

@@ -7,7 +7,6 @@ import android.os.PersistableBundle;
 import androidx.annotation.Nullable;
 
 import com.test.daggermitch.ui.auth.AuthActivity;
-import com.test.daggermitch.ui.auth.AuthViewModel;
 
 import javax.inject.Inject;
 
@@ -20,9 +19,10 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
     @Inject
     public SessionManager sessionManager;
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         subscribeObservers();
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
 
     private void navigateToAuthActivity() {
         Intent intent = new Intent(this, AuthActivity.class);
-        finish();
         startActivity(intent);
+        finish();
     }
 }
