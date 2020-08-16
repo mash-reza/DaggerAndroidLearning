@@ -8,22 +8,22 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class WheelsModule {
+public abstract class WheelsModule {
 
     @Provides
-    public Rims provideRims() {
+    public static Rims provideRims() {
         return new Rims();
     }
 
     @Provides
-    public Tires provideTires() {
+    public static Tires provideTires() {
         Tires tires = new Tires();
         tires.inflate();
         return tires;
     }
 
     @Provides
-    public Wheels provideWheels(Rims rims, Tires tires) {
+    public static Wheels provideWheels(Rims rims, Tires tires) {
         return new Wheels(rims, tires);
     }
 }
