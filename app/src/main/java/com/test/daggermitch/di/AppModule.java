@@ -9,8 +9,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.test.daggermitch.R;
+import com.test.daggermitch.di.auth.AuthScope;
 import com.test.daggermitch.util.Constants;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -48,5 +50,12 @@ public abstract class AppModule {
     @Provides
     public static Drawable getAppDrawable(Application application) {
         return ContextCompat.getDrawable(application, R.drawable.logo);
+    }
+
+    @Singleton
+    @Provides
+    @Named("singleton")
+    public static Object provideString(){
+        return new Object();
     }
 }

@@ -20,6 +20,7 @@ import com.test.daggermitch.ui.main.MainActivity;
 import com.test.daggermitch.viewmodel.ViewModelProvidersFactory;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -38,6 +39,15 @@ public class AuthActivity extends DaggerAppCompatActivity {
     @Inject
     public RequestManager glideInstance;
 
+    @Inject
+    @Named("singleton")
+    public Object singleton;
+
+    @Inject
+    @Named("auth")
+    public Object auth;
+
+
     private EditText userIdEditText;
     private Button userLoginButton;
     private ProgressBar progressBar;
@@ -46,6 +56,9 @@ public class AuthActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
+        Log.d(TAG, "onCreate: auth string: " + auth + " singleton string: " + singleton);
+
         userIdEditText = findViewById(R.id.user_id_input);
         userLoginButton = findViewById(R.id.login_button);
         progressBar = findViewById(R.id.progress_bar);
