@@ -1,11 +1,14 @@
 package com.test.daggermitch;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Inject
     public Car car;
 
     @Override
@@ -13,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        car = DaggerCarComponent.create().getCar();
+        CarComponent carComponent = DaggerCarComponent.create();
+        carComponent.inject(this);
         car.drive();
     }
 }
