@@ -1,10 +1,14 @@
-package com.test.daggermitch;
+package com.test.daggermitch.dagger;
+
+import com.test.daggermitch.car.Rims;
+import com.test.daggermitch.car.Tires;
+import com.test.daggermitch.car.Wheels;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class CarModule {
+public class WheelsModule {
 
     @Provides
     public Rims provideRims() {
