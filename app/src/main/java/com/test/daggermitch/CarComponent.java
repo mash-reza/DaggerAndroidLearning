@@ -2,7 +2,7 @@ package com.test.daggermitch;
 
 import dagger.Component;
 
-@Component
+@Component(modules = CarModule.class)
 public interface CarComponent {
 
 //    Car getCar();
