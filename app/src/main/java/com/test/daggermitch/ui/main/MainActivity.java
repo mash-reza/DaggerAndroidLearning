@@ -1,22 +1,20 @@
 package com.test.daggermitch.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.test.daggermitch.BaseActivity;
 import com.test.daggermitch.R;
-import com.test.daggermitch.SessionManager;
+import com.test.daggermitch.ui.main.posts.PostsFragment;
+import com.test.daggermitch.ui.main.profile.ProfileFragment;
 
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity {
 
     @Inject
-    ProfileFragment profileFragment;
+    PostsFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
