@@ -10,20 +10,22 @@ public class Car {
 
     private Engine engine;
     private Wheels wheels;
+    private Driver driver;
 
     @Inject
-    public Car(Engine engine, Wheels wheels) {
+    public Car(Engine engine, Wheels wheels, Driver driver) {
         this.engine = engine;
         this.wheels = wheels;
+        this.driver = driver;
     }
 
     @Inject
-    public void enableRemote(Remote remote){
+    public void enableRemote(Remote remote) {
         remote.setListener(this);
     }
 
     public void drive() {
         engine.start();
-        Log.i(TAG, "drive...");
+        Log.i(TAG, driver + " drives " + this);
     }
 }

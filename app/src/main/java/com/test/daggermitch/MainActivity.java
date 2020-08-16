@@ -14,7 +14,9 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity {
 
     @Inject
-    public Car car;
+    public Car car1;
+    @Inject
+    public Car car2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         CarComponent carComponent = DaggerCarComponent.builder().horsePower(302).engineCapacity(2500).build();
         carComponent.inject(this);
-        car.drive();
+        car1.drive();
+        car2.drive();
     }
 }
