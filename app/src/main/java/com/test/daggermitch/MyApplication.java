@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.test.daggermitch.dagger.ActivityComponent;
 import com.test.daggermitch.dagger.AppComponent;
-import com.test.daggermitch.dagger.DaggerActivityComponent;
 import com.test.daggermitch.dagger.DaggerAppComponent;
 
 public class MyApplication extends Application {
