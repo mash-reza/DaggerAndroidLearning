@@ -9,25 +9,24 @@ import dagger.Component;
 import dagger.Subcomponent;
 
 @ActivityScope
-@Subcomponent(modules = {DieselEngineModule.class, WheelsModule.class})
+@Subcomponent(modules = {PetrolEngineModule.class, WheelsModule.class})
 public interface ActivityComponent {
 
 //    Car getCar();
 
     void inject(MainActivity mainActivity);
 
-//    @Component.Builder
-//    interface Builder {
-//        ActivityComponent build();
-//
-//
-//        @BindsInstance
-//        Builder horsePower(@Named("horsePower") int horsePower);
-//
-//
-//        @BindsInstance
-//        Builder engineCapacity(@Named("engineCapacity") int engineCapacity);
-//
-//        Builder appComponent(AppComponent appComponent);
-//    }
+    @Subcomponent.Builder
+    interface Builder {
+        ActivityComponent build();
+
+
+        @BindsInstance
+        Builder horsePower(@Named("horsePower") int horsePower);
+
+
+        @BindsInstance
+        Builder engineCapacity(@Named("engineCapacity") int engineCapacity);
+
+    }
 }

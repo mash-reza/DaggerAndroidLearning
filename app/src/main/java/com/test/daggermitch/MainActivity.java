@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActivityComponent activityComponent = ((MyApplication)getApplication()).getAppComponent()
-                .activityComponent(new DieselEngineModule(355));
+                .activityComponentBuilder().engineCapacity(125).horsePower(20).build();
         activityComponent.inject(this);
         car1.drive();
         car2.drive();
