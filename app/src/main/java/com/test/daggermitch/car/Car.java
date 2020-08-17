@@ -2,8 +2,10 @@ package com.test.daggermitch.car;
 
 import android.util.Log;
 
-import javax.inject.Inject;
+import com.test.daggermitch.dagger.ActivityScope;
 
+import javax.inject.Inject;
+@ActivityScope
 public class Car {
 
     private static final String TAG = "Car";

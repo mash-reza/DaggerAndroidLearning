@@ -16,11 +16,13 @@ public class DieselEngineModule {
         this.horsePower = horsePower;
     }
 
+    @ActivityScope
     @Provides
     public int provideHorsePower(){
         return horsePower;
     }
 
+    @ActivityScope
     @Provides
     public Engine provideEngine(DieselEngine engine) {
         return engine;
